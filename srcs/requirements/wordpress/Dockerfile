@@ -1,15 +1,31 @@
 FROM debian:buster
 
-RUN apt-get update
-RUN apt-get -y install php7.3 php-mysqli php-fpm wget sendmail
+ENV DEBIAN_FRONTEND noninteractive
 
-EXPOSE 9000
+RUN mkdir -p /var/www/html
+RUN mkdir -p /usr/bin/wp
+RUN mkdir -p /usr/bin/wp
+
+
+RUN apt-get update
+RUN apt-get -y install php7.3\
+        php-mysql\
+        php-fpm\
+        wget\
+        sendmail\
+        dialog\
+        apt-utils
+RUN apt-get clean
+
+RUN wget https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
+RUN chmod +x wp-cli.phar
+RUN cp wp-cli.phar /usr/local/bin/wp
 
 COPY ./tools /var/www/
+COPY ./tools/www.conf /etc/php/7.3/fpm/php-fpm.conf
 
-RUN pwd
-RUN ls 
-
-RUN chmod +x /var/www/wordpress_start.sh
+RUN chmod a+x /var/www/wordpress_start.sh
 
 ENTRYPOINT [ "/var/www/wordpress_start.sh" ]
+
+#CMD ["sh", "/wordpress_start.sh"]

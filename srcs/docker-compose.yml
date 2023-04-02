@@ -3,17 +3,22 @@ version: '3.5'
 services:
         wordpress:
                 container_name: wordpress
-                build: ./requirements/wordpress
+                depends_on:
+                        - mariadb
+                build:
+                        context: requirements/wordpress
+                        dockerfile: Dockerfile
+                        args:
+                                DB_NAME: mariadb
+                                DB_USER: ${DB_USER}
+                                DB_PASS: ${DB_PASS}
+                                DB_ROOT: ${DB_ROOT}
                 ports:
-                        - "8080:80"
+                        - "80:80"
                 restart: always
                 volumes:
                   - wp:/var/www/html
-                environment:
-                        WORDPRESS_DB_USER: wordpress
-                        WORDPRESS_DB_PASSWORD: wordpress
-                        WORDPRESS_DB_NAME: wordpress
-                        WORDPRESS_DB_HOST: mariadb
+                env_file: .env
 
         mariadb:
                 image: mariadb:10.7
@@ -23,11 +28,7 @@ services:
                 volumes:
                   - db:/var/lib/mariadb
                 restart: always
-                environment:
-                        MYSQL_DATABASE: wordpress
-                        MYSQL_USER: wordpress
-                        MYSQL_PASSWORD: wordpress
-                        MYSQL_ROOT_PASSWORD: wordpress
+                env_file: .env
 #                build: requirements/mariadb/
 
 volumes:
@@ -40,3 +41,6 @@ volumes:
                         o: bind
                         device: /home/adesgran/data/wordpress
 
+networks:
+        incpetion:
+                driver: bridge
