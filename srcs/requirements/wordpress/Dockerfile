@@ -5,10 +5,14 @@ ENV DEBIAN_FRONTEND noninteractive
 RUN mkdir -p /var/www/html
 RUN mkdir -p /usr/bin/wp
 RUN mkdir -p /usr/bin/wp
+RUN mkdir -p /var/lib/docker/volumes/wp/_data
 
 
 RUN apt-get update
 RUN apt-get -y install php7.3\
+        php7.3-fpm\
+        php7.3-cli\
+        mariadb-client\
         php-mysql\
         php-fpm\
         wget\

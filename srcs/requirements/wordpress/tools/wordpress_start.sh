@@ -1,10 +1,7 @@
 #!/bin/bash
 if [ ! -f /conf ]
 then
-        echo "HELLO WORLD";
-        echo "$DB_NAME $DB_USER"
         rm -f /var/www/wp-config.php
-        wp --info
 
         echo "wp core download"
         wp core download --allow-root --path="/var/www"

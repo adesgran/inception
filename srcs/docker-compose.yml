@@ -19,20 +19,35 @@ services:
                 volumes:
                   - wp:/var/www/html
                 env_file: .env
+                networks:
+                  - inception
 
         mariadb:
-                image: mariadb:10.7
+                image: mariadb:latest
                 container_name: mariadb
                 ports:
                         - "3306:3306"
+                environment:
+                        MYSQL_ROOT_PASSWORD: ${DB_ROOT}
+                        MYSQL_DATABASE: ${DB_NAME}
+                        MYSQL_USER: ${DB_USER}
+                        MYSQL_PASSWORD: ${DB_PASS}
                 volumes:
                   - db:/var/lib/mariadb
                 restart: always
+                networks:
+                  - inception
                 env_file: .env
 #                build: requirements/mariadb/
 
 volumes:
-        db: {}
+        db: 
+                driver: local
+                name: db 
+                driver_opts:
+                        type: none
+                        o: bind
+                        device: /home/adesgran/data/mariadb
         wp: 
                 driver: local
                 name: wp
@@ -42,5 +57,5 @@ volumes:
                         device: /home/adesgran/data/wordpress
 
 networks:
-        incpetion:
+        inception:
                 driver: bridge
