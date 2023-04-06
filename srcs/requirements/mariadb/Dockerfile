@@ -1,8 +1,11 @@
-FROM debian:10.12.0
-RUN     apt update && apt upgrade && apt add --no-cache \
-        mariadb \
-        mariadb-client
+FROM debian:buster
 
-COPY tools/configure.sh /tmp/configure.sh
+RUN mkdir -p /var/lib/docker/volumes/db
 
-ENTRYPOINT ["sh", "/tmp/configure.sh"]
+RUN     apt-get update
+RUN     apt-get -y install mariadb-server\
+        mariadb-client\
+        software-properties-common
+
+COPY ./tools/mariadb.conf /etc/mysql/mariadb.conf.d/50-server.cnf
+
