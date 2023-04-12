@@ -9,12 +9,12 @@ build:
 	sudo docker-compose -f srcs/docker-compose.yml up --build
 
 down:
-	docker-compose -f srcs/docker-compose.yml down
+	sudo docker-compose -f srcs/docker-compose.yml down
 
-clean: down
+clean:
 	rm -rf ~/data
 
 prune: clean
-	docker system prune -f
+	sudo docker system prune -f
 
 re: prune build
