@@ -1,0 +1,11 @@
+\! echo "1";
+ALTER USER 'root'@'localhost' IDENTIFIED BY '$DB_ROOT';
+\! echo "2";
+CREATE USER IF NOT EXISTS '$DB_USER'@'%' IDENTIFIED BY '$DB_PASS';
+\! echo "3";
+GRANT ALL PRIVILEGES ON *.* TO '$DB_USER'@'%' IDENTIFIED BY '$DB_PASS';
+\! echo "4";
+CREATE DATABASE IF NOT EXISTS $DB_NAME;
+\! echo "5";
+FLUSH PRIVILEGES;
+\! echo "6";
