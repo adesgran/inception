@@ -1,6 +1,8 @@
 #!/bin/bash
 
-if [ ! -f /mariadbcheck ]
+#if [ ! -f /mariadbcheck ]
+
+if (( $(ps -ef | grep -v grep | grep mysql| wc -l) < 1 ))
 then
         touch /mariadbcheck
         mkdir -p /var/run/mysqld
@@ -8,7 +10,9 @@ then
         chown -R mysql /var/lib/mysql
         service mysql restart
         echo "1"
-        mysqld -u root password ${DB_ROOT}
+        #mysql -uroot -p${DB_ROOT}
+        echo "Password : ${DB_ROOT}"
+        mysqladmin -u root password ${DB_ROOT}
         echo "2"
         echo ""
         echo "mysqld &"
@@ -24,8 +28,13 @@ then
 	#mysqld -uroot -p$DB_ROOT -e "FLUSH PRIVILEGES;"
 
         echo "Running dbscript"
-        mysqld --user=root  < /tmp/dbscript
+        mysql --user=root  < /tmp/dbscript
         echo "Done"
+        while :
+        do
+                sleep 10
+                echo "sleep"
+        done
 
 else
         echo "MariaDB already conf"

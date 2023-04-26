@@ -2,7 +2,6 @@ FROM debian:buster
 
 ENV DEBIAN_FRONTEND noninteractive
 
-EXPOSE 3306
 
 ARG DB_NAME
 ARG DB_USER
@@ -15,7 +14,8 @@ RUN mkdir -p /var/lib/mysql
 
 RUN     apt-get update
 RUN     apt-get -y install mariadb-server\
-        mariadb-client
+        mariadb-client\
+        procps
 
 RUN chown -R mysql:mysql /tmp
 RUN chown -R mysql:mysql /var/lib/mysql
@@ -32,4 +32,5 @@ RUN chmod a+x /tmp/mariadb_start.sh
 ENTRYPOINT [ "/tmp/mariadb_start.sh" ]
 
 
+EXPOSE 3306
 
