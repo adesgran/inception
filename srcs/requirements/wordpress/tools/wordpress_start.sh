@@ -1,6 +1,7 @@
 #!/bin/bash
 if [ ! -f /conf ]
 then
+        sleep 8
         rm -f /var/www/wp-config.php
 
         echo "wp core download"
@@ -15,7 +16,7 @@ then
 
         echo "wp user create"
         wp user create --allow-root "$WP_USER" "$WP_USER_MAIL" --role="author"\
-                --user-pass="$WP_USER_PWD" --path="/var/www"
+                --user_pass="$WP_USER_PWD" --path="/var/www"
 
 
         touch /conf
