@@ -1,6 +1,21 @@
 version: '3.5'
 
 services:
+        nginx:
+                container_name: nginx
+                ports:
+                        - "80:80"
+                        - "443:443"
+                build:
+                        context: requirements/nginx
+                        dockerfile: Dockerfile
+                depends_on:
+                        - wordpress
+                networks:
+                        - inception
+                volumes:
+                        - wp:/var/www/
+                restart: always
         wordpress:
                 container_name: wordpress
                 depends_on:
@@ -13,8 +28,6 @@ services:
                                 DB_USER: $${DB_USER}
                                 DB_PASS: $${DB_PASS}
                                 DB_ROOT: $${DB_ROOT}
-                ports:
-                        - "80:80"
                 restart: always
                 volumes:
                   - wp:/var/www/html
@@ -27,8 +40,6 @@ services:
                 build:
                         context: requirements/mariadb
                         dockerfile: Dockerfile
-                ports:
-                        - "3306:3306"
                 volumes:
                   - db:/var/lib/mariadb
                 restart: always

@@ -1,6 +1,6 @@
 FROM debian:buster
 
-ENV DEBIAN_FRONTEND noninteractive
+#ENV DEBIAN_FRONTEND noninteractive
 
 RUN mkdir -p /var/www/html
 RUN mkdir -p /usr/bin/wp
@@ -27,7 +27,7 @@ RUN wget https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.ph
 RUN chmod +x wp-cli.phar
 RUN cp wp-cli.phar /usr/local/bin/wp
 
-COPY ./tools /var/www/
+COPY ./tools/* /var/www/
 COPY ./tools/www.conf /etc/php/7.3/fpm/php-fpm.conf
 
 RUN chmod a+x /var/www/wordpress_start.sh

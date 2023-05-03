@@ -12,17 +12,17 @@ then
 
         echo "wp core install"
         wp core install --allow-root --admin_user="$ADMIN_USER" --admin_password="$ADMIN_PWD"\
-                --admin_email="$ADMIN_MAIL" --url="$URL" --title="Inception" --path="/var/www"
+                --admin_email="$ADMIN_MAIL" --url="${URL}/wordpress" --title="Inception" --path="/var/www"
 
         echo "wp user create"
         wp user create --allow-root "$WP_USER" "$WP_USER_MAIL" --role="author"\
                 --user_pass="$WP_USER_PWD" --path="/var/www"
 
-
         touch /conf
 else
         echo "Wordpress already conf"
 fi
-exec php-fpm7.3 -F
+echo "Wordpress start"
+exec /usr/sbin/php-fpm7.3 -F
 
 

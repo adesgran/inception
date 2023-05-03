@@ -6,13 +6,14 @@ start:
 build:
 	mkdir -p ~/data/wordpress
 	mkdir -p ~/data/mariadb
+	mkdir -p ~/data/nginx
 	sudo docker-compose -f srcs/docker-compose.yml up --build
 
 down:
 	sudo docker-compose -f srcs/docker-compose.yml down
 
 clean: down
-	rm -rf ~/data
+	sudo rm -rf ~/data
 
 prune: clean
 	sudo docker system prune -f
