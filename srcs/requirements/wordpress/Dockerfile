@@ -30,6 +30,8 @@ RUN cp wp-cli.phar /usr/local/bin/wp
 COPY ./tools/wordpress_start.sh /var/www/
 COPY ./tools/www.conf /etc/php/7.3/fpm/php-fpm.conf
 
+#RUN echo "127.0.0.1 https://localhost:443 adesgran.42.fr" >> /etc/hosts
+
 RUN chmod -R 755 /etc/php/7.3/fpm/php-fpm.conf
 RUN chmod -R 755 /var/www/
 RUN chown -R www-data:www-data /etc/php/7.3/fpm/php-fpm.conf
