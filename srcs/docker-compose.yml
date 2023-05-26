@@ -4,7 +4,6 @@ services:
         nginx:
                 container_name: nginx
                 ports:
-                        - "80:80"
                         - "443:443"
                 build:
                         context: requirements/nginx
@@ -30,7 +29,7 @@ services:
                                 DB_ROOT: $${DB_ROOT}
                 restart: always
                 volumes:
-                  - wp:/var/www/html
+                  - wp:/var/www/
                 env_file: .env
                 networks:
                   - inception
