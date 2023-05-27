@@ -1,14 +1,16 @@
 #!/bin/bash
 if [ ! -f /conf ]
 then
-        sleep 8
         rm -f /var/www/wp-config.php
 
         echo "wp core download"
         wp core download --allow-root --path="/var/www/"
 
         echo "wp config create"
-        wp config create --allow-root --dbname="$DB_NAME" --dbuser="$DB_USER" --dbpass="$DB_PASS" --dbhost="$DB_HOST" --path="/var/www/"
+        until wp config create --allow-root --dbname="$DB_NAME" --dbuser="$DB_USER" --dbpass="$DB_PASS" --dbhost="$DB_HOST" --path="/var/www/"
+        do
+                sleep 1
+        done
 
         echo "wp core install"
         wp core install --allow-root --admin_user="$ADMIN_USER" --admin_password="$ADMIN_PWD"\

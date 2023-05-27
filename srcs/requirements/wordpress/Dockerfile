@@ -2,7 +2,7 @@ FROM debian:buster
 
 ENV DEBIAN_FRONTEND noninteractive
 
-EXPOSE 3306
+EXPOSE 9000
 
 RUN mkdir -p /var/www/html
 RUN mkdir -p /usr/bin/wp
@@ -18,7 +18,6 @@ RUN apt-get -y install php7.3\
         mariadb-client\
         php-mysql\
         wget
-#RUN apt-get clean
 
 RUN uname -m
 
@@ -29,8 +28,6 @@ RUN cp wp-cli.phar /usr/local/bin/wp
 
 COPY ./tools/wordpress_start.sh /var/www/
 COPY ./tools/www.conf /etc/php/7.3/fpm/php-fpm.conf
-
-#RUN echo "127.0.0.1 https://localhost:443 adesgran.42.fr" >> /etc/hosts
 
 RUN chmod -R 755 /etc/php/7.3/fpm/php-fpm.conf
 RUN chmod -R 755 /var/www/

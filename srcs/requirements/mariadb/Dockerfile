@@ -2,6 +2,7 @@ FROM debian:buster
 
 ENV DEBIAN_FRONTEND noninteractive
 
+EXPOSE 3306
 
 ARG DB_NAME
 ARG DB_USER
@@ -32,5 +33,4 @@ RUN chmod a+x /tmp/mariadb_start.sh
 ENTRYPOINT [ "/tmp/mariadb_start.sh" ]
 
 
-EXPOSE 3306
 
