@@ -1,6 +1,6 @@
 #!/bin/bash
 
-if (( $(ps -ef | grep -v grep | grep mysql| wc -l) < 1 ))
+if [ ! -f /conf ]
 then
         mkdir -p /var/run/mysqld
         chown -R mysql:mysql /var/run/mysqld
@@ -22,6 +22,7 @@ EOF
         echo "Done"
         mysqladmin -uroot -p$DB_ROOT shutdown
         echo "Database ready" 
+        touch /conf
 
 else
         echo "MariaDB already conf"

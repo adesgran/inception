@@ -7,9 +7,9 @@ then
         wp core download --allow-root --path="/var/www/"
 
         echo "wp config create"
-        until wp config create --allow-root --dbname="$DB_NAME" --dbuser="$DB_USER" --dbpass="$DB_PASS" --dbhost="$DB_HOST" --path="/var/www/"
+        until wp config create --allow-root --dbname="$DB_NAME" --dbuser="$DB_USER" --dbpass="$DB_PASS" --dbhost="mariadb:3306" --path="/var/www/"
         do
-                sleep 1
+                sleep 3
         done
 
         echo "wp core install"

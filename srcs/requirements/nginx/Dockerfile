@@ -14,18 +14,10 @@ RUN     openssl req -x509 -nodes -out /etc/nginx/ssl/inception.crt -keyout /etc/
 RUN     mkdir -p /var/www
 RUN     chmod -R 777 /var/www/
 RUN     chmod -R 777 /var/www/html
-#RUN     chown -R www-data:www-data /var/www/
-
-RUN     cat /var/www/html/index.nginx-debian.html
-
+RUN     chown -R www-data:www-data /var/www/
 
 COPY    ./tools/nginx.conf /etc/nginx/nginx.conf
-#RUN cat /etc/nginx/nginx.conf
 ADD     ./tools/default.conf /etc/nginx/conf.d/
-#COPY     ./tools/nginx.conf /etc/nginx/conf.d/default.conf
-
-RUN     ls /var/www/html
-
 
 CMD [ "nginx", "-g", "daemon off;" ]
 

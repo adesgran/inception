@@ -1,6 +1,6 @@
-all: start 
+all: build
 
-start:
+up:
 	sudo docker-compose -f srcs/docker-compose.yml up
 
 build:
