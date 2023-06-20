@@ -1,22 +1,22 @@
 all: build
 
 up:
-	sudo docker-compose -f srcs/docker-compose.yml up
+	docker-compose -f srcs/docker-compose.yml up
 
 build:
 	mkdir -p ~/data/wordpress
 	mkdir -p ~/data/mariadb
 	mkdir -p ~/data/nginx
 	sudo sed -i "s/localhost/adesgran.42.fr/g" /etc/hosts
-	sudo docker-compose -f srcs/docker-compose.yml up --build
+	docker-compose -f srcs/docker-compose.yml up --build
 
 down:
-	sudo docker-compose -f srcs/docker-compose.yml down
+	docker-compose -f srcs/docker-compose.yml down
 
 clean: down
-	sudo rm -rf ~/data
+	sudo rm -rf ~/data || true
+	sudo docker system prune -fa || true
+	sudo docker rm -f $(docker ps -a -q) || true
+	sudo docker volume rm $(docker volume ls -q) || true
 
-prune: clean
-	sudo docker system prune -f
-
-re: prune build
+re: clean build
