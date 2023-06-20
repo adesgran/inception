@@ -16,8 +16,7 @@ RUN     chmod -R 777 /var/www/
 RUN     chmod -R 777 /var/www/html
 RUN     chown -R www-data:www-data /var/www/
 
-COPY    ./tools/nginx.conf /etc/nginx/nginx.conf
-ADD     ./tools/default.conf /etc/nginx/conf.d/
+COPY    ./tools/nginx.conf /etc/nginx/conf.d
 
 CMD [ "nginx", "-g", "daemon off;" ]
 
