@@ -8,24 +8,20 @@ then
         chown -R mysql:mysql /var/lib/mysql
         service mysql restart 
         mysql -u root -p${DB_ROOT}
-        echo "Running dbscript"
         cat << EOF > /tmp/dbscript.sql
 USE mysql
 FLUSH PRIVILEGES;
 CREATE DATABASE IF NOT EXISTS $DB_NAME;
 CREATE USER IF NOT EXISTS '$DB_USER'@'%' IDENTIFIED BY '$DB_PASS';
 GRANT ALL PRIVILEGES ON *.* TO '$DB_USER'@'%' IDENTIFIED BY '$DB_PASS';
-SELECT user FROM user
 EOF
         mysql -uroot -p${DB_ROOT} < /tmp/dbscript.sql
 
-        echo "Done"
         mysqladmin -uroot -p$DB_ROOT shutdown
-        echo "Database ready" 
         touch /conf
 
 else
-        echo "MariaDB already conf"
+        echo "db already conf"
 fi
-
+echo "mariadb ready" 
 exec mysqld

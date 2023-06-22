@@ -2,10 +2,6 @@ FROM debian:buster
 
 EXPOSE 3306
 
-ARG DB_NAME
-ARG DB_USER
-ARG DB_PASS
-
 RUN mkdir -p /tmp
 RUN mkdir -p /run/mysqld
 RUN mkdir -p /var/lib/docker/volumes/db

@@ -16,7 +16,7 @@ down:
 clean: down
 	sudo rm -rf ~/data || true
 	sudo docker system prune -fa || true
-	sudo docker rm -f $(docker ps -a -q) || true
-	sudo docker volume rm $(docker volume ls -q) || true
+	sudo docker volume rm $(sudo docker volume ls -q) || true
+	sudo docker network rm $(sudo docker network ls -q) || true
 
 re: clean build
